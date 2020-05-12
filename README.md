@@ -1,2 +1,27 @@
 # springcloud
 springcloud学习
+
+---
+
+需要先启动eureka，启动后可以访问localhost:8001进入eureka的监控面板，查看有哪些服务已经注册进eureka，被调用的服务必须已经注册进eureka
+
+### provider
+springcloud-provider
+
+服务提供者
+
+### feign
+springcloud-consumer
+
+>ex: localhost:8003/consumer/hello/qq  ->  localhsot:8002/provider/hello/qq
+
+>ex: localhost:8003/consumer/world因为provider没有world接口，所以会触发熔断
+### restTemplate调用
+
+springcloud-consumer-ribbon
+
+直接通过restTemplate调用其他服务，没有熔断
+
+>ex: localhost:8004/ribbon/hello/qq  -> localhost:8002/provider/hello/qq
+
+>ex: localhost:8004/ribbon/helloFeign/qq  ->  localhost:8003/consumer/hello/qq
