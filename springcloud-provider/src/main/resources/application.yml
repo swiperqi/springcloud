@@ -6,7 +6,13 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8001/eureka # eureka地址  使用localhost:8001访问
+      defaultZone: http://${eurekaHost}:8001/eureka # eureka地址  使用localhost:8001访问
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+
+
+
+eurekaHost: localhost
+
+

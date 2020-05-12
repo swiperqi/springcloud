@@ -6,11 +6,12 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8001/eureka # 要注册到的eureka地址
+      defaultZone: http://${eurekaHost}:8001/eureka # 要注册到的eureka地址
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ipAddress}:${server.port} # 设置instance-id以 （ip:port） 显示
 feign:
   hystrix:
     enabled: true # 开启熔断，开启后调用失败或超时才会执行fallback的方法，不开启的话，失败会进入一个error页面
+eurekaHost: localhost
 
