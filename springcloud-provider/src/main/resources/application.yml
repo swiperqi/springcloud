@@ -10,8 +10,10 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    # 如果部署到不同服务器需要指定ip-address为部署的服务器的公网ip
+    ip-address: ${clientIp}
 
-
+clientIp: localhost
 
 eurekaHost: localhost
 

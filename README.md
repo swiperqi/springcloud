@@ -37,3 +37,7 @@ springcloud-consumer-ribbon
 >ex: localhost:8010/feign/consumer/hello/qq -> localhost:8003/consumer/hello/qq
 
 >ex: localhost:8010/provider/provider/hello/qq -> localhost:8002/provider/hello/qq
+
+
+---
+ps: 把不同服务部署到不同的服务器上时，如果服务器之间的内网ip不能互相调通，需要在配置文件中设置eureka.instance.ip-address为部署服务器的公网ip

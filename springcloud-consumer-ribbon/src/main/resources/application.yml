@@ -10,9 +10,10 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    ip-address: ${clientIp}
 #springcloud-provider:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
 eurekaHost: localhost
-
+clientIp: localhost
