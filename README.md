@@ -25,3 +25,15 @@ springcloud-consumer-ribbon
 >ex: localhost:8004/ribbon/hello/qq  -> localhost:8002/provider/hello/qq
 
 >ex: localhost:8004/ribbon/helloFeign/qq  ->  localhost:8003/consumer/hello/qq
+
+### 负载均衡
+
+更改端口号启动多个provider，通过feign和ribbon访问provider会轮询启动的provider
+
+### zuul
+
+通过配置zuul路由网关，可以直接访问zuul，然后由zuul转发到相应的服务
+
+>ex: localhost:8010/feign/consumer/hello/qq -> localhost:8003/consumer/hello/qq
+
+>ex: localhost:8010/provider/provider/hello/qq -> localhost:8002/provider/hello/qq

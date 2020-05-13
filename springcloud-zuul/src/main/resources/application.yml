@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: springcloud-zuul
+server:
+  port: 8010
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eurekaHost}:8001/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+
+eurekaHost: localhost
+
+zuul:
+  add-host-header: true
+  routes:
+    feign:
+      # 配置路由，将/feign/**指向springcloud-consumer服务，
+      # 在页面访问localhost:8010/feign/**相当于访问localhost:8003/**
+      path: /feign/**
+      service-id: springcloud-consumer
+    ribbon:
+      path: /ribbon/**
+      service-id: springcloud-consumer-ribbon
+    provider:
+      path: /provider/**
+      service-id: springcloud-provider
