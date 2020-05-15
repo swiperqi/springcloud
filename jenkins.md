@@ -12,8 +12,8 @@ POM中输入pom.xml（github项目首页中的pom.xml，如果要只构建一个
 * 在Build中点击Add build step，选择Execute Shell，在command中填写脚本，比如：
 ```shell script
 # 部署在两台服务器上（一台腾讯云node62，一台阿里云node47，jenkins在node62），centos7
-# workspace是jenkins打包后存放jar包的路径
-workspace=/var/lib/jenkins/workspace/second_jenkins
+# workspace是jenkins打包后存放jar包的路径，'springcloud'是jenkins项目名
+workspace=/var/lib/jenkins/workspace/springcloud
 
 mv ${workspace}/springcloud-eureka/target/springcloud-eureka-1.0-SNAPSHOT.jar ~/springcloud/eureka/
 mv ${workspace}/springcloud-consumer-ribbon/target/springcloud-consumer-ribbon-1.0-SNAPSHOT.jar ~/springcloud/ribbon/
