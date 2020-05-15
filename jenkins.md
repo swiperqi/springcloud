@@ -24,6 +24,7 @@ scp ${workspace}/springcloud-zuul/target/springcloud-zuul-1.0-SNAPSHOT.jar root@
 # 执行启动脚本
 sh ~/springcloud/restart-47.sh
 # 执行另一台服务器的启动脚本
+# 要设置两台服务器ssh免密连接
 ssh node47 "sh ~/springcloud/restart-62.sh"
 ```
 restart-47.sh:

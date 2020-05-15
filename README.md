@@ -32,11 +32,17 @@ springcloud-consumer-ribbon
 
 ### zuul
 
+springcloud-zuul
+
 通过配置zuul路由网关，可以直接访问zuul，然后由zuul转发到相应的服务
 
 >ex: localhost:8010/feign/consumer/hello/qq -> localhost:8003/consumer/hello/qq
 
 >ex: localhost:8010/provider/provider/hello/qq -> localhost:8002/provider/hello/qq
+
+过滤器
+
+可以设置有哪些请求可以不经过过滤直接进行路由，可以设置过滤规则，比如请求头里需要带有accessToken等，不符合的会被拦截不进行路由
 
 ### jenkins部署
 [jenkins.md](https://github.com/swiperqi/springcloud/blob/master/jenkins.md)

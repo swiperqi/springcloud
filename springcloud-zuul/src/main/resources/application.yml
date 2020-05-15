@@ -30,3 +30,17 @@ zuul:
     provider:
       path: /provider/**
       service-id: springcloud-provider
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            # 设置超时时间，如果设置小了，zuul第一次请求很容易报超时
+            timeoutInMilliseconds: 10000

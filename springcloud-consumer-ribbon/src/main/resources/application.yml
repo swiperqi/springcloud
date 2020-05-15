@@ -15,5 +15,9 @@ eureka:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
 eurekaHost: localhost
 clientIp: localhost
