@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: springcloud-system
+server:
+  port: 8008
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eurekaHost}:8001/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    ip-address: ${clientIp}
+
+
+eurekaHost: localhost
+
+clientIp: localhost

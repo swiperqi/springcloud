@@ -2,7 +2,7 @@ package com.qiqi.springcloudzuul.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.apache.commons.lang.StringUtils;
+import com.qiqi.springcloudcommon.configuration.AuthConstant;
 
 /**
  * @author qiqi
@@ -42,13 +42,13 @@ public class ZuulAccessFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         String accessToken = ctx.getRequest().getHeader("accessToken");
-        if (StringUtils.isBlank(accessToken)) {
+        if (!AuthConstant.ACCESS_TOKEN.equals(accessToken)) {
             // 设置不进行路由
             ctx.setSendZuulResponse(false);
             // 设置返回码
             ctx.setResponseStatusCode(401);
             // 设置返回内容
-            ctx.setResponseBody("{\"code\":\"401\",\n\"content\":\"no AccessToken\"}");
+            ctx.setResponseBody("{\n\"code\":\"401\",\n\"content\":\"AccessToken is not correct\"\n}");
         }
         return null;
     }

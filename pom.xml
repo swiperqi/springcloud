@@ -10,6 +10,8 @@
         <module>springcloud-consumer</module>
         <module>springcloud-consumer-ribbon</module>
         <module>springcloud-zuul</module>
+        <module>springcloud-common</module>
+        <module>springcloud-system</module>
     </modules>
     <parent>
         <groupId>org.springframework.cloud</groupId>
