@@ -21,6 +21,7 @@ mv ${workspace}/springcloud-consumer/target/springcloud-consumer-1.0-SNAPSHOT.ja
 # node47为另一台服务器的ip(47.***.***.***)，如果只用一台服务器的话，下面两句可以改成和上面类似的
 scp ${workspace}/springcloud-provider/target/springcloud-provider-1.0-SNAPSHOT.jar root@node47:~/springcloud/provider/
 scp ${workspace}/springcloud-zuul/target/springcloud-zuul-1.0-SNAPSHOT.jar root@node47:~/springcloud/zuul/
+scp ${workspace}/springcloud-system/target/springcloud-system-1.0-SNAPSHOT.jar root@node47:~/springcloud/system/
 # 执行启动脚本
 sh ~/springcloud/restart-47.sh
 # 执行另一台服务器的启动脚本
@@ -50,6 +51,7 @@ restart-62.sh:
 kill -9 $(ps -ef | grep java | grep 8002 | awk '{print $2}')
 kill -9 $(ps -ef | grep java | grep 8005 | awk '{print $2}')
 kill -9 $(ps -ef | grep java | grep 8006 | awk '{print $2}')
+kill -9 $(ps -ef | grep java | grep 8008 | awk '{print $2}')
 kill -9 $(ps -ef | grep java | grep 8010 | awk '{print $2}')
 
 export BUILD_ID=dontKillMe
@@ -58,6 +60,7 @@ export BUILD_ID=dontKillMe
 nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8002 --eurekaHost=node62 > ~/springcloud/provider/info8002.log &
 nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8005 --eurekaHost=node62 > ~/springcloud/provider/info8005.log &
 nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8006 --eurekaHost=node62 > ~/springcloud/provider/info8006.log &
+nohup java -jar ~/springcloud/system/springcloud-system-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8008 --eurekaHost=node62 > ~/springcloud/system/info.log &
 # node47为本服务器ip(47.***.***.***)
 nohup java -jar ~/springcloud/zuul/springcloud-zuul-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8010 --eurekaHost=node62 > ~/springcloud/zuul/info.log &
 
