@@ -27,8 +27,8 @@ public class ZuulAccessFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
         String requestURI = ctx.getRequest().getRequestURI();
-        // provider请求不过滤
-        if (requestURI.contains("provider")) {
+        // auth请求不过滤
+        if (requestURI.contains("auth")) {
             return false;
         }
         return true;

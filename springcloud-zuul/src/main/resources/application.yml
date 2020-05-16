@@ -30,6 +30,9 @@ zuul:
     provider:
       path: /provider/**
       service-id: springcloud-provider
+    auth:
+      path: /system/**
+      service-id: springcloud-system
   host:
     socket-timeout-millis: 60000
     connect-timeout-millis: 60000
