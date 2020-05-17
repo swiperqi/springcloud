@@ -49,3 +49,16 @@ springcloud-zuul
 
 ---
 ps: 把不同服务部署到不同的服务器上时，如果服务器之间的内网ip不能互相调通，需要在配置文件中设置eureka.instance.ip-address为部署服务器的公网ip
+
+maven：父工程pom文件中如果配置了`spring-boot-maven-plugin`，子工程中如果没有main方法（如springcloud-common），
+不能被打包成jar包（如果子工程中的pom文件包含`<packaging>jar<packaging>`，那么在pom install的时候会报错），
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
