@@ -17,4 +17,15 @@ clientIp: localhost
 
 eurekaHost: localhost
 
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8008/auth/getAccessToken
+    client:
+      client-id: provider
+      client-secret: provider
+      access-token-uri: http://localhost:8008/oauth/token
+      grant-type: password
+      scope: provider
+
 
