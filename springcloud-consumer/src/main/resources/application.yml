@@ -9,7 +9,7 @@ eureka:
       defaultZone: http://${eurekaHost}:8001/eureka # 要注册到的eureka地址
   instance:
     prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ipAddress}:${server.port} # 设置instance-id以 （ip:port） 显示
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} # 设置instance-id以 （ip:port） 显示
     ip-address: ${clientIp}
 feign:
   hystrix:

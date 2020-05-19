@@ -9,15 +9,21 @@ eureka:
       defaultZone: http://${eurekaHost}:8001/eureka
   instance:
     prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
     ip-address: ${clientIp}
 #springcloud-provider:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
-ribbon:
-  ReadTimeout: 60000
-  ConnectTimeout: 60000
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
 
 eurekaHost: localhost
 clientIp: localhost
