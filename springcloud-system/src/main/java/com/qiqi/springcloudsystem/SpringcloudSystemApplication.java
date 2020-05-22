@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableResourceServer
+//@EnableResourceServer
 public class SpringcloudSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringcloudSystemApplication.class, args);

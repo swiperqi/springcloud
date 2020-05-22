@@ -1,12 +1,18 @@
 package com.qiqi.springcloudsystem.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import static com.qiqi.springcloudcommon.configuration.AuthConstant.USER_INFO_LIST;
@@ -16,9 +22,16 @@ import static com.qiqi.springcloudcommon.configuration.AuthConstant.USER_INFO_LI
  * @date 2020-05-18
  */
 
-@Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Bean
     @Override
     protected UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
@@ -27,10 +40,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     User.withUsername(user.getUsername())
                             .password(user.getPassword())
                             .authorities(user.getUsername())
+                            .roles(user.getUsername())
                             .build()
             );
         });
         return manager;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("system").password(passwordEncoder.encode("system")).roles("system")
+                .and()
+                .withUser("provider").password(passwordEncoder.encode("provider")).roles("provider");
     }
 
     @Override
@@ -40,8 +62,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers().anyRequest()
-                .and()
-                .authorizeRequests().antMatchers("/oauth/**").permitAll();
+        http.authorizeRequests().antMatchers("/").permitAll()
+                .anyRequest().hasAnyRole("system", "provider");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+        web.ignoring().antMatchers("/favicon.ico");
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 }

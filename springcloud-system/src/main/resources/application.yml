@@ -19,5 +19,6 @@ clientIp: localhost
 security:
   oauth2:
     client:
-      access-token-uri: /oauth/token
+#      access-token-uri: /oauth/token
       client-id: system
+      client-secret: system
