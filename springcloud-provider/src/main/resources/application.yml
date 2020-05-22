@@ -1,31 +1,43 @@
 spring:
   application:
     name: springcloud-provider # eureka注册名字
+  datasource:
+    url: jdbc:mysql://localhost:3306/springsecurity?userUnicode=true&characterencoding=utf8mb4&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  security:
+    oauth2:
+      client:
+        registration:
+          springcloudsystem:
 server:
   port: 8002
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${eurekaHost}:8001/eureka # eureka地址  使用localhost:8001访问
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
-    # 如果部署到不同服务器需要指定ip-address为部署的服务器的公网ip
-    ip-address: ${clientIp}
-
-clientIp: localhost
-
-eurekaHost: localhost
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${eurekaHost}:8001/eureka # eureka地址  使用localhost:8001访问
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+#    # 如果部署到不同服务器需要指定ip-address为部署的服务器的公网ip
+#    ip-address: ${clientIp}
+#
+#clientIp: localhost
+#
+#eurekaHost: localhost
 
 security:
   oauth2:
-    resource:
-      user-info-uri: http://localhost:8008/auth/getAccessToken
+#    resource:
+#      user-info-uri: http://localhost:8010/system/auth/user
     client:
       client-id: provider
-      client-secret: provider
-      access-token-uri: http://localhost:8008/oauth/token
-      grant-type: password
-      scope: provider
-
+#      client-secret: provider
+      access-token-uri: /oauth/token
+#      grant-type: password
+#      scope: provider
+mybatis:
+  mapper-locations: classpath*:/sqlmap/**/*.xml
 
