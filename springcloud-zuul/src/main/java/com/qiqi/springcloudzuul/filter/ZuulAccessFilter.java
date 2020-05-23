@@ -40,16 +40,16 @@ public class ZuulAccessFilter extends ZuulFilter {
      */
     @Override
     public Object run() {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        String accessToken = ctx.getRequest().getHeader("accessToken");
-        if (!AuthConstant.ACCESS_TOKEN.equals(accessToken)) {
-            // 设置不进行路由
-            ctx.setSendZuulResponse(false);
-            // 设置返回码
-            ctx.setResponseStatusCode(401);
-            // 设置返回内容
-            ctx.setResponseBody("{\n\"code\":\"401\",\n\"content\":\"AccessToken is not correct\"\n}");
-        }
+//        RequestContext ctx = RequestContext.getCurrentContext();
+//        String accessToken = ctx.getRequest().getHeader("accessToken");
+//        if (!AuthConstant.ACCESS_TOKEN.equals(accessToken)) {
+//            // 设置不进行路由
+//            ctx.setSendZuulResponse(false);
+//            // 设置返回码
+//            ctx.setResponseStatusCode(401);
+//            // 设置返回内容
+//            ctx.setResponseBody("{\n\"code\":\"401\",\n\"content\":\"AccessToken is not correct\"\n}");
+//        }
         return null;
     }
 }

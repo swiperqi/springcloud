@@ -3,6 +3,7 @@ package com.qiqi.springcloudsystem.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,15 +20,13 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
  * @date 2020-05-18
  */
 
+// 认证服务
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -39,30 +38,30 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .secret(passwordEncoder.encode("system"))
                 .authorizedGrantTypes("password")
                 .accessTokenValiditySeconds(7200)
-                .scopes("all")
-                .resourceIds(ResourceServerConfig.RESOURCE_ID)
+                .scopes("system")
+                .resourceIds("springcloudprovider", ResourceServerConfig.RESOURCE_ID)
                 .and()
                 .withClient("provider")
-                .scopes("all")
+                .scopes("provider")
                 .secret(passwordEncoder.encode("provider"))
                 .accessTokenValiditySeconds(7200)
                 .authorizedGrantTypes("password")
-                .resourceIds("springcloudprovider");
+                // resouceId 要和资源服务中配置的id一致
+                .resourceIds("springcloudprovider", ResourceServerConfig.RESOURCE_ID);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)
-                .tokenStore(new InMemoryTokenStore());
+                .tokenStore(new InMemoryTokenStore())
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-//        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
         security.allowFormAuthenticationForClients();
-//        super.configure(security);
     }
 
     @Bean

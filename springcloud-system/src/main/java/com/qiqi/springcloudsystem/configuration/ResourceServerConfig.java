@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020-05-20
  */
 
+// 资源服务
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
@@ -27,18 +28,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint((request, response, exception) ->
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-                .and()
-                .requestMatchers()
-//                .antMatchers("/auth/user")
-                .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+        super.configure(http);
     }
 }

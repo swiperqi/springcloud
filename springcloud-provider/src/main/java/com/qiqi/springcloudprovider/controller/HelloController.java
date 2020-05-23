@@ -15,6 +15,7 @@ public class HelloController {
     private String port;
 
     @GetMapping("/hello/{name}")
+    // 需要provider角色才能访问
     @PreAuthorize("hasAuthority('ROLE_provider')")
     public String hello(@PathVariable String name) {
         return "provider" + port + ": </br>hello, " + name;
