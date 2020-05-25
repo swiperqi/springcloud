@@ -55,7 +55,7 @@ springcloud-zuul
 
 jenkins部署
 ---
-[jenkins.md](https://github.com/swiperqi/springcloud/blob/master/jenkins.md)
+[jenkins.md](https://github.com/swiperqi/springcloud/blob/spring-security/jenkins.md)
 
 spring security oauth2
 ---
