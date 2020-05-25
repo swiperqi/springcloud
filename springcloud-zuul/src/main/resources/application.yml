@@ -49,12 +49,12 @@ hystrix:
             # 设置超时时间，如果设置小了，zuul第一次请求很容易报超时
             timeoutInMilliseconds: 10000
 
-security:
-  oauth2:
-    client:
-      access-token-uri: /system/oauth/token
-      user-authorization-uri: /system/oauth/authorize
-    resource:
-      user-info-uri: /system/auth/user
-      prefer-token-info: false
+#security:
+#  oauth2:
+#    client:
+#      access-token-uri: /system/oauth/token
+#      user-authorization-uri: /system/oauth/authorize
+#    resource:
+#      user-info-uri: /system/auth/user
+#      prefer-token-info: false
 

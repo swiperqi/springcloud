@@ -19,6 +19,9 @@ springcloud-consumer
 
 >ex: localhost:8003/consumer/world因为provider没有world接口，所以会触发熔断
 
+服务提供者使用spring security的时候，调用的时候需要携带token，可以实现`RequestInterceptor`
+接口，把请求头中的token携带过去
+
 restTemplate调用
 ---
 
@@ -81,6 +84,9 @@ spring security oauth2
 
 携带token访问provider的接口：
 `http://localhost:8002/provider/hello/qq?access_token=983f99c8-8a83-41eb-94ed-b7eaa26725b4`
+或者在请求头中携带token
+`http://localhost:8002/provider/hello/qq`
+请求头：`Authorization`:`Bearer 983f99c8-8a83-41eb-94ed-b7eaa26725b4`
 
 ps:如果使用system获取的token访问provider的接口会返回权限不足无法访问的情况（
 `localhost:8008/oauth/token?client_id=system&client_secret=system&grant_type=password&username=system&password=system`）
