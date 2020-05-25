@@ -61,7 +61,8 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         security.allowFormAuthenticationForClients();
     }
 
-    private PasswordEncoder passwordEncoder() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

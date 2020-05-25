@@ -51,7 +51,7 @@ hystrix:
         isolation:
           thread:
             # 设置超时时间，如果设置小了，zuul第一次请求很容易报超时
-            timeoutInMilliseconds: 10000
+            timeoutInMilliseconds: 60000
 
 #security:
 #  oauth2:
