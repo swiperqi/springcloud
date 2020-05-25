@@ -38,6 +38,10 @@ zuul:
     connect-timeout-millis: 60000
   sensitive-headers:
 
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
 hystrix:
   command:
     default:

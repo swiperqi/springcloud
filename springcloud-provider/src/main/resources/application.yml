@@ -2,7 +2,7 @@ spring:
   application:
     name: springcloud-provider # eureka注册名字
   datasource:
-    url: jdbc:mysql://localhost:3306/springsecurity?userUnicode=true&characterencoding=utf8mb4&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://${dataSourceUrl}:3306/springsecurity?userUnicode=true&characterencoding=utf8mb4&useSSL=false&serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -18,6 +18,8 @@ eureka:
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     # 如果部署到不同服务器需要指定ip-address为部署的服务器的公网ip
     ip-address: ${clientIp}
+
+dataSourceUrl: localhost
 
 clientIp: localhost
 

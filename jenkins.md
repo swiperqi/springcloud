@@ -57,10 +57,10 @@ kill -9 $(ps -ef | grep java | grep 8010 | awk '{print $2}')
 export BUILD_ID=dontKillMe
 # 启动3个provider
 # node62是eureka服务所在的服务器的ip(62.***.***.***)
-nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8002 --eurekaHost=node62 > ~/springcloud/provider/info8002.log &
-nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8005 --eurekaHost=node62 > ~/springcloud/provider/info8005.log &
-nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8006 --eurekaHost=node62 > ~/springcloud/provider/info8006.log &
-nohup java -jar ~/springcloud/system/springcloud-system-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8008 --eurekaHost=node62 > ~/springcloud/system/info.log &
+nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8002 --eurekaHost=node62 --dataSourceUrl=node62 > ~/springcloud/provider/info8002.log &
+nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8005 --eurekaHost=node62 --dataSourceUrl=node62 > ~/springcloud/provider/info8005.log &
+nohup java -jar ~/springcloud/provider/springcloud-provider-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8006 --eurekaHost=node62 --dataSourceUrl=node62 > ~/springcloud/provider/info8006.log &
+nohup java -jar ~/springcloud/system/springcloud-system-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8008 --eurekaHost=node62 --dataSourceUrl=node62 > ~/springcloud/system/info.log &
 # node47为本服务器ip(47.***.***.***)
 nohup java -jar ~/springcloud/zuul/springcloud-zuul-1.0-SNAPSHOT.jar --clientIp=node47 --server.port=8010 --eurekaHost=node62 > ~/springcloud/zuul/info.log &
 

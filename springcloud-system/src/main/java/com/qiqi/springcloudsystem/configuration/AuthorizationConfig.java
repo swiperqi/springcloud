@@ -28,14 +28,11 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("system")
-                .secret(passwordEncoder.encode("system"))
+                .secret(passwordEncoder().encode("system"))
                 .authorizedGrantTypes("password")
                 .accessTokenValiditySeconds(7200)
                 .scopes("system")
@@ -43,7 +40,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .and()
                 .withClient("provider")
                 .scopes("provider")
-                .secret(passwordEncoder.encode("provider"))
+                .secret(passwordEncoder().encode("provider"))
                 .accessTokenValiditySeconds(7200)
                 .authorizedGrantTypes("password")
                 // resouceId 要和资源服务中配置的id一致
@@ -64,8 +61,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         security.allowFormAuthenticationForClients();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
+    private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
