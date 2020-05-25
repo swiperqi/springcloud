@@ -2,6 +2,7 @@ package com.qiqi.springcloudconsumer.configuration;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -20,6 +21,12 @@ public class TokenFeignClientInterceptor implements RequestInterceptor {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String authorization = request.getHeader("Authorization");
-        requestTemplate.header("Authorization", authorization);
+        if (StringUtils.isNotBlank(authorization)) {
+            requestTemplate.header("Authorization", authorization);
+        } else {
+            String accessToken = request.getParameter("access_token");
+            requestTemplate.header("Authorization", "Bearer " + accessToken);
+        }
+
     }
 }
