@@ -1,5 +1,6 @@
 package com.qiqi.springcloudsystem;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -11,7 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableResourceServer
+@MapperScan(basePackages = "com.qiqi.springcloudsystem.repository.mapper")
 public class SpringcloudSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringcloudSystemApplication.class, args);
