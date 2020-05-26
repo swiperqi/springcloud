@@ -2,6 +2,7 @@ package com.qiqi.springcloudsystem.controller;
 
 import com.qiqi.springcloudcommon.configuration.AuthConstant;
 import com.qiqi.springcloudcommon.dto.UserInfo;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class AuthController {
     }
 
     @GetMapping("/user")
+    @PreAuthorize("hasAuthority('ROLE_system')")
     public List<UserInfo> user() {
         return AuthConstant.USER_INFO_LIST;
     }
