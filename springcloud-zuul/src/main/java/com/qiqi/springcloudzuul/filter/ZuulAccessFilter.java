@@ -2,7 +2,7 @@ package com.qiqi.springcloudzuul.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.qiqi.springcloudcommon.configuration.AuthConstant;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author qiqi
@@ -27,29 +27,31 @@ public class ZuulAccessFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
         String requestURI = ctx.getRequest().getRequestURI();
-        // auth请求不过滤
-        if (requestURI.contains("auth")) {
+        // oauth/token请求不过滤
+        if (requestURI.contains("oauth/token")) {
             return false;
         }
         return true;
     }
 
     /**
-     * 设置过滤规则，这里设置的规则为请求头里需要有accessToken，请求头里没有accessToken或者accessToken未空
+     * 设置过滤规则，这里设置的规则为请求头里需要有Authorization或者带有access_token参数，
+     * 请求头里没有Authorization或者没有access_token参数
      * 都不会进行路由，被拦截
      */
     @Override
     public Object run() {
-//        RequestContext ctx = RequestContext.getCurrentContext();
-//        String accessToken = ctx.getRequest().getHeader("accessToken");
-//        if (!AuthConstant.ACCESS_TOKEN.equals(accessToken)) {
-//            // 设置不进行路由
-//            ctx.setSendZuulResponse(false);
-//            // 设置返回码
-//            ctx.setResponseStatusCode(401);
-//            // 设置返回内容
-//            ctx.setResponseBody("{\n\"code\":\"401\",\n\"content\":\"AccessToken is not correct\"\n}");
-//        }
+        RequestContext ctx = RequestContext.getCurrentContext();
+        String authorization = ctx.getRequest().getHeader("Authorization");
+        String accessToken = ctx.getRequest().getParameter("access_token");
+        if (StringUtils.isBlank(accessToken) && StringUtils.isBlank(authorization)) {
+            // 设置不进行路由
+            ctx.setSendZuulResponse(false);
+            // 设置返回码
+            ctx.setResponseStatusCode(401);
+            // 设置返回内容
+            ctx.setResponseBody("{\n\"code\":\"401\",\n\"content\":\"AccessToken is empty\"\n}");
+        }
         return null;
     }
 }
