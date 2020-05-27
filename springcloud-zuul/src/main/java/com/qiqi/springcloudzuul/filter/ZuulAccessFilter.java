@@ -27,8 +27,11 @@ public class ZuulAccessFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
         String requestURI = ctx.getRequest().getRequestURI();
-        // oauth/token请求不过滤
-        if (requestURI.contains("oauth/token")) {
+        // oauth/token请求、swagger不过滤
+        if (requestURI.contains("oauth/token") ||
+                requestURI.contains("swagger") ||
+                requestURI.contains("v2") ||
+                requestURI.contains("auth/login")) {
             return false;
         }
         return true;
