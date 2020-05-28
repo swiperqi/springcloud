@@ -1,6 +1,12 @@
 spring:
   application:
     name: springcloud-provider # eureka注册名字
+  datasource:
+    url: jdbc:mysql://${dataSourceUrl}:3306/shiro?userUnicode=true&characterencoding=utf8mb4&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
 server:
   port: 8002
 eureka:
@@ -13,8 +19,12 @@ eureka:
     # 如果部署到不同服务器需要指定ip-address为部署的服务器的公网ip
     ip-address: ${clientIp}
 
+dataSourceUrl: localhost
+
 clientIp: localhost
 
 eurekaHost: localhost
 
 
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml
