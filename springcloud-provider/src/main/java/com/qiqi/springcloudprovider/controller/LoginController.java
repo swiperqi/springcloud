@@ -22,4 +22,15 @@ public class LoginController {
         subject.login(token);
         return "login success";
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "logout success";
+    }
+    @GetMapping("/error")
+    public String error() {
+        return "unauthorized";
+    }
 }
