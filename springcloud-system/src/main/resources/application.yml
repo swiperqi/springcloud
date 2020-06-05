@@ -7,6 +7,10 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: ${redisHost}
+    port: 6379
+    database: 0
 server:
   port: 8008
 eureka:
@@ -17,6 +21,8 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     ip-address: ${clientIp}
+
+redisHost: localhost
 
 dataSourceUrl: localhost
 
