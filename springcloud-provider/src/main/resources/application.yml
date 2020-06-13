@@ -7,6 +7,17 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    host: localhost
+    username: qiqi
+    password: 123456
+    port: 5672
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 1
+        max-concurrency: 5
+        prefetch: 1
 server:
   port: 8002
 eureka:
